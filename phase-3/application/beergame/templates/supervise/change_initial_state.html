@@ -1,0 +1,102 @@
+{# -*- mode: jinja2; -*- #} {% extends 'base.html' %} {% block header %}
+<h1 class="d-flex justify-content-center">
+  {% block title %} Modifier les paramètres de la Chaine logistique {% endblock
+  %}
+</h1>
+{% endblock %} {% block content %}
+<img src="/static/supply_chain.png" style="max-width: 50%" />
+<div class="row">
+<form method="post" enctype="multipart/form-data">
+  <table class="table table-dark table-sm text-center">
+    <thead>
+      <tr>
+        <th scope="col">Acteur</th>
+        {% for actor in actors %}
+        <th scope="col">{{ actor}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Stock initial</td>
+        {% for actor_number in range(10) %}
+        <td>
+          <div class="form-group">
+            <input
+              id="initial_stock_{{loop.index}}"
+              name="initial_stock_{{loop.index}}"
+              type="number"
+              class="form-control"
+              min="0"
+            />
+          </div>
+        </td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Table for initial commands and command/delivery time -->
+  <table class="table table-dark table-sm text-center">
+    <thead>
+      <tr>
+        <td scope="col">Fournisseur</td>
+        <td scope="col">Client</td>
+        <td scope="col">Flux Initial</td>
+        <td scope="col">Délai de commande</td>
+        <td scope="col">Délai de livraison</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for relation in relations %}
+      <tr>
+        <td>{{relation.supplier}}</td>
+        <td>{{relation.client}}</td>
+        <td>
+          <input
+            id="initial_command_{{loop.index}}"
+            name="initial_command_{{loop.index}}"
+            type="number"
+            class="form-control"
+            min="0"
+          />
+        </td>
+        <td>
+          <input
+            id="command_time_{{loop.index}}"
+            name="command_time_{{loop.index}}"
+            type="number"
+            class="form-control"
+            min="1"
+          />
+        </td>
+        <td>
+          <input
+            id="delivery_time_{{loop.index}}"
+            name="delivery_time_{{loop.index}}"
+            type="number"
+            class="form-control"
+            min="1"
+          />
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div
+    class="button-wrapper justify-content-center d-flex"
+    style="margin-top: 1rem"
+  >
+    <input class="btn btn-usual-custom" type="submit" value="Valider" />
+    <a
+      class="btn btn-usual-cancel-custom"
+      type="button"
+      href="{{ url_for('supervise.lobby') }}"
+      style="margin-left: 1rem"
+    >
+      Quitter
+    </a>
+  </div>
+</div>
+</form>
+{% endblock %}

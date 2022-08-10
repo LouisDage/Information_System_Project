@@ -1,0 +1,30 @@
+{# -*- mode: jinja2; -*- #} {% extends 'base.html' %} {% block header %}
+<h1 class="d-flex justify-content-center">
+  {% block title %} Salle d'attente de la partie {% endblock %}
+</h1>
+{% endblock %} {%block content %}
+<div class="row">Joueurs prêts: {{number_taken_actors}}/10</div>
+<div class="text-center">
+  <div
+    class="spinner-border"
+    role="status"
+    style="
+      width: 15rem;
+      height: 15rem;
+      border-width: 1rem;
+      animation-duration: 2s;
+    "
+  >
+    <span class="visually-hidden">Chargement...</span>
+  </div>
+  <p>D'autres joueurs sont en train de rejoindre la partie.</p>
+  <a
+    class="btn btn-outline-secondary btn-sm"
+    type="button"
+    href="{{ url_for('play.player_game') }}"
+    style="margin-left: 1rem"
+  >
+    Passe à la partie
+  </a>
+</div>
+{% endblock %}

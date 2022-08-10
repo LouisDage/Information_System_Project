@@ -1,0 +1,51 @@
+{# -*- mode: jinja2; -*- #} {% block header %}
+<h1 class="d-flex justify-content-center">{% block title %}{% endblock %}</h1>
+<div class="col-sm d-flex justify-content-center">
+  <div class="row">
+    <table class="table table-dark table-sm text-center">
+      <thead>
+        <tr>
+          <th scope="col">Acteur</th>
+          <th scope="col">Prêt à l'étape {{etape}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for player in list_player_ready %}
+        <tr>
+          <td>{{ player['name_actor'] }}</td>
+          <td>
+            {% if player['ready'] == True %}
+            <i class="fas fa-check" style="color: green"></i>
+            {% else %}
+            <i class="fas fa-times" style="color: red"></i>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row-sm d-flex justify-content-center">
+  {% if state_game == False %}
+  <a
+    class="btn btn-usual-cancel-custom"
+    type="button"
+    href="{{ url_for('supervise.state_game') }}"
+    style="margin-left: 1rem"
+  >
+    Terminer la Partie
+  </a>
+  {% else %}
+  <a
+    class="btn btn-usual-cancel-custom"
+    type="button"
+    href="{{ url_for('supervise.state_game') }}"
+    style="margin-left: 1rem"
+  >
+    Reprendre la Partie
+  </a>
+  {% endif %}
+</div>
+
+{% endblock %}

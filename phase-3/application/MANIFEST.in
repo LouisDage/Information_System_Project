@@ -1,0 +1,9 @@
+# listes de fichier spécifiques non inclus automatiquement
+include LICENSE.rst
+include beergame/schema-postgresql.sql
+include .flaskenv
+graft instance
+graft beergame/static
+graft beergame/templates
+graft tests
+global-exclude *.pyc

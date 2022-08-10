@@ -1,0 +1,80 @@
+{# -*- mode: jinja2; -*- #} {% block header %}
+<h1>{% block title %}Commande des Clients Finaux{% endblock %}</h1>
+{% endblock %} {% block content %}
+
+<div class="col col-4">
+  <form method="post" enctype="multipart/form-data">
+    <table class="table table-dark table-sm text-center">
+      <thead>
+        <tr>
+          <td scope="col">Nom du Client</td>
+          <td scope="col">Nom du Fournisseur</td>
+          <td scope="col">Quantité livrée</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>German Client 1</td>
+          <td>German Pharmacy 1</td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              min="0"
+              name="German Client 1"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>German Client 2</td>
+          <td>German Pharmacy 2</td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              min="0"
+              name="German Client 2"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>French Client 1</td>
+          <td>French Pharmacy 1</td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              min="0"
+              name="French Client 1"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>French Client 2</td>
+          <td>French Pharmacy 2</td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              min="0"
+              name="French Client 2"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="button-wrapper justify-content-between d-flex"
+      style="margin-top: 1rem"
+    >
+      <input
+        class="btn btn-usual-custom"
+        type="submit"
+        value="Valider"
+        name="form"
+        href="{{url_for('supervise.dashboard')}}"
+      />
+    </div>
+  </form>
+</div>
+{% endblock %}

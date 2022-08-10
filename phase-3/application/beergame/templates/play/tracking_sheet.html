@@ -1,0 +1,53 @@
+{# -*- mode: jinja2; -*- #} {% block header %}
+<h1 class="d-flex justify-content-center">
+  {% block title %} Fiche de suivi du Joueur {% endblock %}
+</h1>
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="row justify-content-md-center">
+    <table class="table table-dark table-sm table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Round</th>
+          {% for client in data[0]['client_demands'] %}
+          <th scope="col">Demande Client {{client["name_client"]}}</th>
+          {% endfor %} {% for client in data[0]['client_deliveries'] %}
+          <th scope="col">Livraison Client {{client["name_client"]}}</th>
+          {% endfor %} {% for client in data[0]['rest_delivery'] %}
+          <th scope="col">Reste à Livrer Client {{client["name_client"]}}</th>
+          {% endfor %} {% for supplier in data[0]['reception'] %}
+          <th scope="col">
+            Réception Fournisseur {{supplier["name_supplier"]}}
+          </th>
+          {% endfor %}
+          <th scope="col">Stock</th>
+          {% for player in data[0]['player_demands'] %}
+          <th scope="col">Commande Fournisseur {{player["name_client"]}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for round in data %}
+        <tr>
+          <td scope="row">{{round['round']}}</td>
+          {% for client in round['client_demands'] %}
+          <td class="table-active">{{client["quantity"]}}</td>
+          {% endfor %} {% for client in round['client_deliveries'] %}
+          <td class="table-active">{{client["quantity"]}}</td>
+          {% endfor %} {% for supplier in round['rest_delivery'] %}
+          <td class="table-active">{{supplier["total_rest"]}}</td>
+          {% endfor %} {% for supplier in round['reception'] %}
+          <td class="table-active">{{supplier["total_delivery"]}}</td>
+          {% endfor %}
+          <td class="table-active">{{round['round_stock']}}</td>
+          {% for player in round['player_demands'] %}
+          <td class="table-active">{{player["quantity"]}}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

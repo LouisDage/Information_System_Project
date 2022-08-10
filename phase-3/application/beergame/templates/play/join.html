@@ -1,0 +1,74 @@
+{# -*- mode: jinja2; -*- #} {% extends 'base.html' %} {% block header %}
+<h1 class="d-flex justify-content-center">{% block title %}{% endblock %}</h1>
+{% endblock %} {% block content %}
+<div class="col-4 justify-content-center d-flex align-items-center">
+  <form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="name_supply_chain">Nom de la partie</label>
+      <input
+        name="name_supply_chain"
+        id="name_supply_chain"
+        class="form-control coloration-form"
+      />
+    </div>
+    <div class="checkbox mb-3">
+      <label>
+        <input
+          type="checkbox"
+          name="checkbox1"
+          id="joinCheck"
+          onclick="showForm()"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseExample"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        />
+        J'ai déjà rejoint la partie
+      </label>
+    </div>
+
+    <div class="collapse" id="collapseExample">
+      <div class="form-group">
+        <label for="firmname">Nom de l'entreprise</label>
+        <input
+          type="firmname"
+          name="firmname"
+          id="firmname"
+          class="form-control coloration-form"
+          value=""
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control coloration-form"
+          value=""
+        />
+      </div>
+    </div>
+
+    <div
+      class="button-wrapper justify-content-center d-flex"
+      style="margin-top: 1rem"
+    >
+      <input
+        class="btn btn-usual-custom"
+        type="submit"
+        value="Rejoindre la Chaîne"
+      />
+      <!-- fonctionne que si on remplit tout-->
+      <a
+        class="btn btn-usual-cancel-custom"
+        type="button"
+        href="{{ url_for('index.index') }}"
+        style="margin-left: 1rem"
+      >
+        Annuler
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

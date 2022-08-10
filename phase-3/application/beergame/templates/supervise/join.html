@@ -1,0 +1,60 @@
+{# -*- mode: jinja2; -*- #} {% extends 'base.html' %} {% block header %}
+<h1 class="d-flex justify-content-center">
+  {% block title %} Liste de mes parties {% endblock %}
+</h1>
+{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-sm d-flex justify-content-center">
+    <div class="row">
+      <table class="table table-sm text-center">
+        <thead class="table" style="color: white">
+          <tr>
+            <th scope="col">Nom de la partie</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for game in games %}
+          <tr>
+            <form method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <td id="{{game.name}}">
+                  <label for="name_supply_chain"></label>
+                  <input
+                    name="name_supply_chain"
+                    id="name_supply_chain"
+                    value="{{game.name}}"
+                    readonly="readonly"
+                    style="
+                      border: none;
+                      text-align: center;
+                      color: white;
+                      background-color: #252525;
+                    "
+                  />
+                </td>
+              </div>
+              <!-- <td>{{current_round}}</td> -->
+              <td>
+                <input
+                  class="btn btn-link btn-usual-custom"
+                  type="submit"
+                  value="Rejoindre le salon de la partie"
+                />
+              </td>
+            </form>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-12 d-flex justify-content-center">
+    <a
+      class="btn btn-usual-cancel-custom"
+      href="{{ url_for('index')}}"
+      style="margin-top: 1rem; margin-right: 1rem"
+      >Annuler</a
+    >
+  </div>
+</div>
+{% endblock %}

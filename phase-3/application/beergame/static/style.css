@@ -1,0 +1,80 @@
+/* Hide the arrows on input type number */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.corner-button {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  position: fixed;
+}
+
+.btn-usual-custom {
+  background-color: #b6d3ec;
+  text-emphasis-color: black;
+  color: black;
+  text-shadow: 1px 1px 3px #ffffff;
+}
+
+.btn-usual-cancel-custom {
+  background-color: #e4b3ec;
+  text-shadow: 1px 1px 3px #ffffff;
+  text-emphasis-color: black;
+  color: black;
+}
+
+.background {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #313131;
+}
+
+.strokeme {
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.supply-chain-supervisor {
+  max-width: 100%;
+  max-height: 75%;
+  margin-bottom: 2rem;
+}
+
+.coloration-form {
+  background-color: #252525;
+}
+.fit-picture {
+  width: 250px;
+}
+
+.form-control:focus {
+  background-color: #252525;
+  color: white;
+  border-color: #b6d3ec;
+}
+
+.navbar-nav > .active > button:active {
+  background-color: #b6d3ec;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #e4b3ec;
+  color: #b6d3ec;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #e4b3ec;
+}
+
+.nav-tabs .nav-link {
+  color: #b6d3ec;
+}

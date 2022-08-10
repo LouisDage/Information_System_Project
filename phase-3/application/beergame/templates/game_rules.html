@@ -1,0 +1,40 @@
+{# -*- mode: jinja2; -*- #}  {% block header
+%}
+<h1 class="d-flex justify-content-center">
+  {% block title %} {% endblock %}
+</h1>
+{% endblock %} {% block content %}
+<p>
+    <p> 
+    {% if etape==1 %}
+      {{ variable_test2 }}
+      {{variable_test3}} 
+    <!-- {{variable_test2}}  Même si cette variable n'a pas été définit dans le render template pas d'erreur-->
+    {% endif %}
+    ❑ La communication ne se fait que par commande. (aucune
+    communication orale n’est autorisée avec les autres maillons)
+  </p>
+  <p> 
+    ❑ Suivre
+    scrupuleusement les séquences de jeu. Une séquence de jeu dure quelques
+    minutes. 
+  </p>
+  <p>
+    ❑ Le stock de matière première est infini. Aucun stock négatif n’est
+    autorisé sur votre zone de stockage. 
+  </p>
+  <p>
+    ❑ Vous devez accepter toutes les
+    livraisons de votre fournisseur et ne ferez aucun retour fournisseur.
+  </p> 
+    <p>
+    ❑ Si
+    vous décidez de ne pas commander de produits à votre fournisseur pendant une
+    séquence, indiquez quand même le chiffre 0 sur votre commande. 
+  </p>
+  <p>
+    ❑ Vos
+    stratégies de recomplètement ne doivent pas être communiquées.
+  </p>
+</p>
+{% endblock %}

@@ -1,0 +1,233 @@
+{# -*- mode: jinja2; -*- #} {% block header %}
+<h1 class="d-flex justify-content-center">
+  {% block title %} Graphique des Pénalités de la Partie {% endblock %}
+</h1>
+{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-12 text-center">
+    <h2>Nom de la partie : {{session['name_supply_chain']}}</h2>
+  </div>
+
+  <br />
+
+  {% macro div_canvas(id) -%}
+  <div class="col-md-6">
+    <canvas id="{{ id }}"></canvas>
+  </div>
+  {%- endmacro %}
+  <!-- -->
+  {{ div_canvas(id='myChart_rest') }}
+  <!-- -->
+  {{ div_canvas('myChart_stock') }}
+  <!-- -->
+  {{ div_canvas('myChart_rest_cumulated') }}
+  <!-- -->
+  {{ div_canvas('myChart_stock_cumulated') }}
+  <!-- -->
+  {{ div_canvas('myChart_stock_and_rest') }}
+  <!-- -->
+  {{ div_canvas('myChart_stock_and_rest_cumulated') }}
+  <!-- -->
+  <div class="row d-flex justify-content-center"></div>
+  <div class="d-flex"></div>
+</div>
+{% endblock %} {% block scripts %}
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+  integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+
+<script>
+  // On spécifie la liste des rounds
+  var labels = {{round_list}};
+
+  // Configuration générique
+  const config_generic = {
+    type: "line",
+    data: undefined,
+    options: {
+      responsive:true,
+      aspectRatio: 1,
+      plugins: {
+        //htmlLegend: {
+        // ID of the container to put the legend in
+        //containerID: 'legend-container',
+        //},
+        title: {
+          display: true,
+          text: undefined,
+          color: 'rgb(255, 255, 255)',
+
+        },
+        legend: {
+              position:'top',
+              responsive:true,
+              display:true,
+              labels: {
+                  font:{
+                    size:10,
+                  },
+                  color: 'rgb(255, 255, 255)',
+              }
+        },
+        labels:labels,
+      },
+      boxWidth: 800,
+      boxHeight: 800,
+      fullSize:true,
+    },
+  };
+
+  // On définit les données génériques
+  const data_generic = {
+    labels: labels,
+    datasets: undefined,
+  };
+
+  {% macro dataset(data, list) -%}
+    const {{ data }} =  JSON.parse(JSON.stringify(data_generic));
+    {{ data }}.datasets = [
+      {% for player in list %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}
+    ];
+  {%- endmacro %}
+
+
+  // On spécifie les données des restes à livrer
+  {{ dataset(data="data_rest", list=list_player_rest_penalty) }}
+  /* const data_rest =  JSON.parse(JSON.stringify(data_generic));
+  data_rest.datasets = [{% for player in list_player_rest_penalty %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}]; */
+
+  // On spécifie les données des stocks
+  const data_stock =  JSON.parse(JSON.stringify(data_generic));
+  data_stock.datasets = [{% for player in list_player_stock_penalty %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}];
+
+  // On spécifie les données des restes à livrer en cumulées
+  const data_rest_cumulated =  JSON.parse(JSON.stringify(data_generic));
+  data_rest_cumulated.datasets = [{% for player in list_player_rest_penalty_cumulated %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}];
+
+
+  // On spécifie les données des stocks en cumulées
+  const data_stock_cumulated =  JSON.parse(JSON.stringify(data_generic));
+  data_stock_cumulated.datasets = [{% for player in list_player_stock_penalty_cumulated %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}];
+
+  // On spécifie les données des restes à livrer et des stocks
+  const data_stock_and_rest =  JSON.parse(JSON.stringify(data_generic));
+  data_stock_and_rest.datasets = [{% for player in list_player_stock_and_rest_penalty %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}];
+
+  // On spécifie les données des restes à livrer et des stocks
+  const data_stock_and_rest_cumulated =  JSON.parse(JSON.stringify(data_generic));
+  data_stock_and_rest_cumulated.datasets = [{% for player in list_player_stock_and_rest_penalty_cumulated %}
+        {
+          label: "{{player['name_actor']}}",
+          backgroundColor: "{{player['border_color']}}",
+          borderColor: "{{player['border_color']}}",
+          data: {{player['data']}},
+        },
+      {% endfor %}];
+
+  // On configure les données des restes à livrer
+  const config_rest = JSON.parse(JSON.stringify(config_generic));
+  config_rest.data = data_rest;
+  config_rest.options.plugins.title.text = 'Courbes de pénalités des restes à livrer par joueur';
+
+  // On configure les données des stocks
+  const config_stock = JSON.parse(JSON.stringify(config_generic));
+  config_stock.data = data_stock;
+  config_stock.options.plugins.title.text = 'Courbes de pénalités des stocks par joueur';
+
+  // On spécifie la configuration des courbes des restes à livrer en cumulées
+  const config_rest_cumulated = JSON.parse(JSON.stringify(config_generic));
+  config_rest_cumulated.data = data_rest_cumulated;
+  config_rest_cumulated.options.plugins.title.text = 'Courbes de pénalités des restes à livrer cumulées par joueur';
+
+  // On spécifie la configuration des courbes des restes à livrer en cumulées
+  const config_stock_cumulated = JSON.parse(JSON.stringify(config_generic));
+  config_stock_cumulated.data = data_stock_cumulated;
+  config_stock_cumulated.options.plugins.title.text = 'Courbes de pénalités des stocks cumulées par joueur';
+
+  // On spécifie la configuration des courbes des restes à livrer et des stocks
+  const config_stock_and_rest = JSON.parse(JSON.stringify(config_generic));
+  config_stock_and_rest.data = data_stock_and_rest;
+  config_stock_and_rest.options.plugins.title.text = 'Courbes de pénalités des stocks et des restes à livrer par joueur';
+
+  // On spécifie la configuration des courbes des restes à livrer et des stocks
+  const config_stock_and_rest_cumulated = JSON.parse(JSON.stringify(config_generic));
+  config_stock_and_rest_cumulated.data = data_stock_and_rest_cumulated;
+  config_stock_and_rest_cumulated.options.plugins.title.text = 'Courbes de pénalités des stocks et des restes à livrer cumulées par joueur';
+</script>
+<script>
+  const myChart_rest = new Chart(
+    document.getElementById("myChart_rest"),
+    config_rest
+  );
+
+  const myChart_stock = new Chart(
+    document.getElementById("myChart_stock"),
+    config_stock
+  );
+
+  const myChart_rest_cumulated = new Chart(
+    document.getElementById("myChart_rest_cumulated"),
+    config_rest_cumulated
+  );
+
+  const myChart_stock_cumulated = new Chart(
+    document.getElementById("myChart_stock_cumulated"),
+    config_stock_cumulated
+  );
+
+  const myChart_stock_and_rest = new Chart(
+    document.getElementById("myChart_stock_and_rest"),
+    config_stock_and_rest
+  );
+
+  const myChart_stock_and_rest_cumulated = new Chart(
+    document.getElementById("myChart_stock_and_rest_cumulated"),
+    config_stock_and_rest_cumulated
+  );
+</script>
+{% endblock %}

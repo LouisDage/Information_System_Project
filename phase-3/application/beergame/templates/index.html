@@ -1,0 +1,111 @@
+{# -*- mode: jinja2; -*- #} {% extends 'base.html' %} {% block header %}
+<h1 class="d-flex justify-content-center strokeme" style="padding-top: 3rem">
+  {% block title %} Method to my business {% endblock %}
+</h1>
+{% endblock %} {% block content %}
+
+<div
+  class="row text-center justify-content-center align-items-center flex-grow-1"
+  style="position: relative"
+>
+  <style>
+    #accueil {
+      background-image: url({{url_for("static", filename= "inventory.png")}});
+      background-size: 25%;
+      background-repeat: no-repeat;
+      background-position: 1rem 1rem;
+    }
+  </style>
+
+  {% if session["user_id"] %}
+  <div class="row text-center justify-content-center align-items-center">
+    <div class="col-sm" style="position: fixed">
+      <a
+        class="btn btn-usual-cancel-custom pull-right top-0 end-0 corner-button"
+        href="{{ url_for('auth.logout')}}"
+        >Déconnexion</a
+      >
+    </div>
+  </div>
+
+  <div class="row" style="text-align: center">
+    <div class="col-12 d-flex justify-content-center">
+      <div
+        class="btn-group-vertical justify-content-between"
+        style="width: 15rem"
+      >
+        <a
+          type="button"
+          class="btn btn-usual-custom btn-lg btn-block"
+          href="{{ url_for('supervise.create')}}"
+        >
+          <i class="fa-solid fa-circle-plus"></i>
+          Créer
+        </a>
+        <a
+          type="button"
+          style="margin-top: 1rem"
+          class="btn btn-usual-custom btn-lg btn-block"
+          href="{{ url_for('play.join')}}"
+          >Rejoindre</a
+        >
+        <a
+          type="button"
+          style="margin-top: 1rem"
+          class="btn btn-usual-custom btn-lg btn-block"
+          href="{{ url_for('supervise.join')}}"
+        >
+          Liste parties
+        </a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="container">
+    <div
+      class="row d-flex align-items-center justify-content-center"
+      style="margin-bottom: 20px"
+    >
+      <p class="strokeme">
+        Pour avoir accès aux options de création de partie il faut se connecter.
+      </p>
+    </div>
+
+    <div class="button-wrapper justify-content-center d-flex">
+      <a
+        type="button"
+        class="btn btn-usual-custom"
+        href="{{ url_for('supervise.create')}}"
+        style="margin-right: 1rem"
+        >Créer une partie</a
+      >
+      <a
+        type="button"
+        class="btn btn-usual-custom"
+        href="{{ url_for('play.join')}}"
+        style="margin-right: 1rem"
+        >Rejoindre une partie</a
+      >
+    </div>
+  </div>
+  {% endif %}
+
+  <div
+    class="row text-center justify-content-center align-items-center"
+    style="margin-top: 1rem; position: relative"
+  >
+    <div class="col-sm">
+      <p class="strokeme">
+        Cette simulation a pour objectif de montrer les effets insupçonnés d’une
+        logistique traditionnelle. Chaque utilisateur ayant le rôle d'un maillon
+        de la chaine logistique pourra confronter la situation intriquée dans
+        les contraintes d'une telle chaîne. La tâche qu'ils doivent accomplir ?
+        Répondre au mieux aux commandes que son client lui passe tout en gérant
+        un stock dépendant des livraisons qu'il reçoit. La communication et la
+        collaboration n'est pas possible au sein de la chaîne.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

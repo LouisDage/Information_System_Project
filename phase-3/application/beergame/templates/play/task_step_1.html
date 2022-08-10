@@ -1,0 +1,83 @@
+{# -*- mode:jinja2; -*- #} {% block header %}
+
+<h1 class="'d-flex justify-content-center">
+  {% block title %} Réception des commandes des clients pour le round actuel{%
+  endblock %}
+</h1>
+{% endblock %} {% block content %}
+
+<div class="row justify-content-center">
+  <p class="fw-bold text-center">
+    Stock de {{running_commands[0]['name_client']}}: {{current_round_stock}}
+  </p>
+</div>
+<div class="row justify-content-center">
+  <div class="col col-4">
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Nom du fournisseur</th>
+          <th>Quantité de la commande en cours</th>
+          <th>Round de réception de la livraison</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for command in running_commands %}
+        <tr class="table-active">
+          <th scope="col">{{command['name_supplier']}}</th>
+          <th scope="col">{{command['quantity']}}</th>
+          <th scope="col">{{command['round_received']}}</th>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col col-4">
+    <form method="post" enctype="multipart/form-data">
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th>Nom du client</th>
+            <th>Quantité de la commande du round</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for command in client_demands %}
+          <tr class="table-active">
+            <th scope="col">{{command['name_client']}}</th>
+            <th scope="col">{{command['quantity']}}</th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-4">
+          {% if state_game == False %}
+          <input
+            class="btn btn-usual-custom btn-block"
+            type="submit"
+            value="Valider"
+            href="{{url_for('play.player_game')}}"
+          />
+          {% else %}
+          <a
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            href="{{ url_for('play.graphs') }}"
+            style="margin-left: 1rem"
+          >
+            Graphiques
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- fonctionne que si on remplit tout-->
+    </form>
+  </div>
+  <div class="col col-4">
+    <p class="fw-bold text-center">Round Actuel : {{current_round}}</p>
+  </div>
+</div>
+{% endblock %}

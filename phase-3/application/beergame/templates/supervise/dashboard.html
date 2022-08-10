@@ -1,0 +1,169 @@
+{# -*- mode: jinja2; -*- #} {% extends 'base.html' %} {% block header %}
+<h1 class="d-flex justify-content-center">
+  {% block title %} Tableau de bord du superviseur {% endblock %}
+</h1>
+
+<div class="row justify-content-center align-items-center">
+  <div class="col-12 justify-content-center d-flex">
+    <a
+      class="btn btn-usual-custom pull-right top-0 end-0 corner-button"
+      type="button"
+      href="{{ url_for('index.index') }}"
+    >
+      Accueil
+    </a>
+  </div>
+  <ul
+    class="nav nav-tabs justify-content-center align-items-center"
+    id="myTab"
+    role="tablist"
+  >
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="home-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#home"
+        type="button"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+      >
+        Tableau de bord
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="profile-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#profile"
+        type="button"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+      >
+        Fiche de suivi
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="graphics-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#graphics"
+        type="button"
+        role="tab"
+        aria-controls="rules"
+        aria-selected="false"
+      >
+        Graphiques
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="rules-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#rules"
+        type="button"
+        role="tab"
+        aria-controls="rules"
+        aria-selected="false"
+      >
+        Règles du jeu
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="home"
+      role="tabpanel"
+      aria-labelledby="home-tab"
+    >
+      {% with list_player_ready=list_player_ready, etape=etape %} {% include
+      "supervise/main_page.html" %} {% endwith %}
+      {% if etape==4 %} {% include 'supervise/task_step_4_Supervisor.html'
+      %}{% endif %}
+    </div>
+  
+
+    <div
+      class="tab-pane fade"
+      id="profile"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <form method="post">
+        <div class="row d-flex">
+          <div class="col-sm d-flex">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Acteur</label>
+              <select
+                name="actor_name"
+                class="form-control coloration-form"
+                style="color: white"
+                id="exampleFormControlSelect1"
+              >
+                {% for actor in actor %}
+                <option value="{{actor['generic_name']}}">
+                  {{ actor['generic_name'] }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-10 d-flex">
+            <div
+              class="button-wrapper justify-content-between d-flex"
+              style="margin-top: 1rem"
+            >
+              <input
+                class="btn btn-usual-custom"
+                type="submit"
+                id="Valid"
+                value="Valider"
+                name="Valider"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+      {% if post==1 %}{% with data=data %} {% include "play/tracking_sheet.html" %} {% endwith
+      %}{% endif %}
+    </div>
+  
+
+    
+    <div
+      class="tab-pane fade"
+      id="graphics"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      {% with list_player_rest_penalty=list_player_rest_penalty,
+      list_player_rest_penalty_cumulated=list_player_rest_penalty_cumulated,
+      list_player_stock_penalty=list_player_stock_penalty,
+      list_player_stock_penalty_cumulated=list_player_stock_penalty_cumulated,
+      round_list=round_list, nber_round=nber_round,
+      list_player_stock_and_rest_penalty=list_player_stock_and_rest_penalty,
+      list_player_stock_and_rest_penalty_cumulated=list_player_stock_and_rest_penalty_cumulated
+      %} {% include "supervise/graphics.html" %} {% endwith %}
+      
+    </div>
+
+
+      <div
+        class="tab-pane fade"
+        id="rules"
+        role="tabpanel"
+        aria-labelledby="rules-tab"
+      >
+        {% include "game_rules.html" %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

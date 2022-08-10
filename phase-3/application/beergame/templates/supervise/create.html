@@ -1,0 +1,39 @@
+{# -*- mode: jinja2; -*- #}
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1 class="d-flex justify-content-center">
+    {% block title %}
+    {% endblock %}
+  </h1>
+{% endblock %}
+
+{%block content %}
+  <div class="row text-center justify-content-center align-items-center flex-grow-1">
+      {% if session["user_id"] %}
+      <div class="row justify-content-center d-flex">
+        <div class="col-4 justify-content-center d-flex">
+          <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="name">Nom de la partie</label>
+              <input name="name" id="name" required class="form-control coloration-form" style="color:white">
+            </div>
+            <div class="button-wrapper justify-content-center d-flex" style="margin-top: 1rem;">
+              <input class="btn btn-usual-custom" type="submit" value="Créer la partie">
+            </div>
+          </form>
+        </div>
+      </div> 
+      <div class="button-wrapper justify-content-center d-flex">
+         <a type="button" class="btn btn-usual-cancel-custom" href="{{ url_for('index') }}" style="margin-top: 1rem;">Annuler</a>
+       </div>  
+  </div>     
+      {% else %}
+      <div class="button-wrapper justify-content-center d-flex">
+        <a type="button" class="btn btn-primary" href="{{ url_for('auth.register') }}" style="margin-right: 1rem;">S'inscrire</a>
+        <a type="button" class="btn btn-primary" href="{{ url_for('auth.login') }}" style="margin-right: 1rem;">Se connecter</a>
+        <a type="boutton" class="btn btn-danger" href="{{ url_for('index') }}"> Annuler</a>
+      </div>
+      {% endif %}
+  </div> 
+{% endblock %}
