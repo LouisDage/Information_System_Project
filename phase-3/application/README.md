@@ -66,8 +66,8 @@ Copy paste the following lines:
 FLASK_APP=beergame
 
 # The environment in which it is executed (development, test, production...)
-FLASK_ENV=test
-FLASK_ENV=production
+FLASK_ENV=test\
+FLASK_ENV=production\
 FLASK_ENV=development
 
 # The name of the file and the name of the application configuration
