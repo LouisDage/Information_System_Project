@@ -71,11 +71,11 @@ FLASK_ENV=production\
 FLASK_ENV=development
 
 # The name of the file and the name of the application configuration
-FLASKRPG_SETTINGS=instance.configurations:config
+FLASKRPG_SETTINGS=instance.configurations:config\
 FLASKRPG_CONFIG=development
 
 # The name of the file and the name of the application configuration
-FLASKBEERGAME_SETTINGS=instance.configurations:config
+FLASKBEERGAME_SETTINGS=instance.configurations:config\
 FLASKBEERGAME_CONFIG=development
 `
 
