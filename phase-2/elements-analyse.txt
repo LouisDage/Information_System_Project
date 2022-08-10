@@ -1,0 +1,65 @@
+ 
+* Aux vues des questions et critiques faites durant la soutenance et aux
+  vues des CdC des autres équipes, ne pas hésitez à compléter votre CdC.
+
+* Les retours des enseignants en tant que clients et en tant
+  qu'évaluateurs vous améneront aussi à faire évoluer le CdC.
+
+* Il y a plusieurs résultats attendus pour la phase 2 (analyse et
+  spécifications):
+
+    * Un cahier des charges complété.
+
+    * Un modèle des données (un MCD) complet (accompagné de la
+      description d'un jeu de données de test et pourquoi pas des
+      données elle-mêmes). Faire le lien avec les CdC (scénarios,
+      fonctions...) pour le justifier.
+
+    * Une description de l'interface Web (éventuellement
+      sous la forme d'une maquette... mais pas un prototype).
+
+      Ça peut-être aussi l'occasion de tester un ou plusieurs looks
+      (esthétique et ergonomie) et un ou plusieurs modes de
+      fonctionnement auprès du client.
+
+    * La transcription de l'interface en graphe (implicite) routes/vues
+      pour attaquer un framework de développement Web MVC.
+
+      Une route permet de générer une vue (distinguer les routes de
+      consultations et les routes qui modifient la base de données).
+
+      Pour chaque route, il faut décrire les paramètres fournis, les
+      conditions "métier" (règles de gestion) à vérifier pour accéder à
+      cette route, les éventuelles actions de modificiations des données
+      stockées et la vue ou les vues à produire.
+
+      Pour chaque vue, il faut décrire les paramètres de la vue et les
+      données à rechercher dans la base pour alimenter la vue.
+
+      En général, on évalue la difficulté de chaque route et de chaque
+      vue via 3 niveaux: simple, normale, compliquée. Les coûts associés
+      (en temps) suivent une progression géométrique de raison 2 (1U,
+      2U, 4U). Évidemment, vos estimations seront arbitraires dans
+      l'absolue mais elles devraient être correctes en relatif.
+
+      Note: il n'y a pas de corrélations entre la difficulté d'une route
+      et celle d'une vue.
+
+    * Les choix de développement pour la future phase 3 en se basant
+      sur:
+    
+         * Une estimation de la charge de développement de l'ensemble
+           des fonctionnalités.
+
+         * Une estimation de votre capacité de production en phase 3 (en
+           se basant sur le nombre d'heures de TA Projet à l'emploi du
+           temps auquel vous ajouterez 10 à 20% de travail personnel).
+
+      Le mise en correspondance de ces deux estimations vous permettra
+      de choisir ce que vous espérez réellement développer durant la
+      phase 3 en tenant compte de la priorisation des fonctions issue de
+      la phase 1.
+
+* Vous pouvez évidemment compléter ce rendu de phase 2 par tous les
+  éléments que vous jugerez nécessaires.
+
