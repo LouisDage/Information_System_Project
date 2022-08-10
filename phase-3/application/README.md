@@ -62,19 +62,19 @@ Create a new file .flaskenv at the root of your project
 Copy paste the following lines:
 
 `
-# Le nom de l'application flask
+# Name of the Flask application
 FLASK_APP=beergame
 
-# L'environnement dans lequel on l'exécute (development, test, production...)
+# The environment in which it is executed (development, test, production...)
 # FLASK_ENV=test
 # FLASK_ENV=production
 FLASK_ENV=development
 
-# Le nom du fichier et le nom de la configuration de l'application
+# The name of the file and the name of the application configuration
 FLASKRPG_SETTINGS=instance.configurations:config
 FLASKRPG_CONFIG=development
 
-# Le nom du fichier et le nom de la configuration de l'application
+# The name of the file and the name of the application configuration
 FLASKBEERGAME_SETTINGS=instance.configurations:config
 FLASKBEERGAME_CONFIG=development
 `
